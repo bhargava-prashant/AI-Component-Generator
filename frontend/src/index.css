@@ -1,0 +1,32 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  height: 100vh;
+}
+
+.viewport-container {
+  display: flex;
+  width: 100%;
+}
+
+.side-panel {
+  width: 300px;
+  background-color: #f3f3f3;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.preview-pane {
+  flex: 1;
+  padding: 20px;
+  background: #fff;
+  overflow-y: auto;
+}
+
+.preview-box {
+  border: 1px dashed #ccc;
+  padding: 20px;
+  min-height: 400px;
+  background: #fdfdfd;
+}
