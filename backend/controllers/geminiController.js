@@ -32,7 +32,7 @@ const generateComponent = async (req, res) => {
     );
 
     const generatedCode = geminiResponse.data?.candidates?.[0]?.content?.parts?.[0]?.text;
-
+    console.log(generatedCode);
     if (!generatedCode) {
       return res.status(500).json({ error: 'No output returned from Gemini API' });
     }
