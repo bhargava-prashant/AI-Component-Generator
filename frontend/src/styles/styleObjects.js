@@ -8,8 +8,8 @@ export default function styles() {
       display: 'flex',
       fontFamily:
         '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
-      backgroundColor: '#f9fafb',
-      color: '#111827',
+      backgroundColor: '#f8f9fa',
+      color: '#212529',
       minWidth: 0,
       overflowX: 'hidden',
     },
@@ -21,7 +21,7 @@ export default function styles() {
       alignItems: 'center',
       justifyContent: 'center',
       padding: 16,
-      backgroundColor: '#f9fafb',
+      backgroundColor: '#f8f9fa',
       position: 'relative',
     },
     authBackground: {
@@ -30,8 +30,7 @@ export default function styles() {
       left: 0,
       right: 0,
       bottom: 0,
-      background:
-        'linear-gradient(135deg, rgba(147, 51, 234, 0.2) 0%, rgba(219, 39, 119, 0.2) 50%, rgba(59, 130, 246, 0.2) 100%)',
+      background: 'linear-gradient(135deg, rgba(108, 117, 125, 0.1) 0%, rgba(73, 80, 87, 0.1) 100%)',
     },
     authModal: {
       position: 'relative',
@@ -41,7 +40,8 @@ export default function styles() {
       borderRadius: 16,
       boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
       backdropFilter: 'blur(8px)',
-      backgroundColor: 'rgba(255, 255, 255, 0.8)',
+      backgroundColor: 'rgba(255, 255, 255, 0.95)',
+      border: '1px solid #e9ecef',
     },
     authHeader: {
       textAlign: 'center',
@@ -50,7 +50,7 @@ export default function styles() {
     authIcon: {
       width: 64,
       height: 64,
-      background: 'linear-gradient(135deg, #9333ea 0%, #db2777 100%)',
+      background: 'linear-gradient(135deg, #343a40 0%, #212529 100%)',
       borderRadius: '50%',
       display: 'flex',
       alignItems: 'center',
@@ -60,14 +60,11 @@ export default function styles() {
     authTitle: {
       fontSize: 32,
       fontWeight: 'bold',
-      background: 'linear-gradient(135deg, #9333ea 0%, #db2777 100%)',
-      WebkitBackgroundClip: 'text',
-      WebkitTextFillColor: 'transparent',
-      backgroundClip: 'text',
+      color: '#212529',
       marginBottom: 8,
     },
     authSubtitle: {
-      color: '#6b7280',
+      color: '#6c757d',
       fontSize: 14,
     },
     authForm: {
@@ -79,9 +76,9 @@ export default function styles() {
       width: '100%',
       padding: '12px 16px',
       borderRadius: 8,
-      border: '1px solid #d1d5db',
+      border: '1px solid #ced4da',
       backgroundColor: '#ffffff',
-      color: '#111827',
+      color: '#212529',
       fontSize: 16,
       outline: 'none',
       transition: 'all 0.2s ease',
@@ -89,7 +86,7 @@ export default function styles() {
     authButton: {
       width: '100%',
       padding: '12px 16px',
-      background: 'linear-gradient(135deg, #9333ea 0%, #db2777 100%)',
+      background: 'linear-gradient(135deg, #343a40 0%, #212529 100%)',
       color: '#ffffff',
       fontWeight: 600,
       borderRadius: 8,
@@ -107,10 +104,10 @@ export default function styles() {
       marginTop: 16,
       textAlign: 'center',
       fontSize: 14,
-      color: '#6b7280',
+      color: '#6c757d',
     },
     authToggleLink: {
-      color: '#9333ea',
+      color: '#343a40',
       cursor: 'pointer',
       fontWeight: 500,
       textDecoration: 'none',
@@ -122,12 +119,13 @@ export default function styles() {
       display: 'flex',
       flexDirection: 'column',
       backgroundColor: '#ffffff',
-      borderRight: '1px solid #e5e7eb',
+      borderRight: '1px solid #e9ecef',
       minWidth: 0,
     },
     sidebarHeader: {
       padding: 16,
-      borderBottom: '1px solid #e5e7eb',
+      borderBottom: '1px solid #e9ecef',
+      backgroundColor: '#f8f9fa',
     },
     sidebarTop: {
       display: 'flex',
@@ -143,7 +141,7 @@ export default function styles() {
     sidebarIcon: {
       width: 32,
       height: 32,
-      background: 'linear-gradient(135deg, #9333ea 0%, #db2777 100%)',
+      background: 'linear-gradient(135deg, #343a40 0%, #212529 100%)',
       borderRadius: '50%',
       display: 'flex',
       alignItems: 'center',
@@ -156,10 +154,11 @@ export default function styles() {
     sidebarUserName: {
       fontWeight: 600,
       fontSize: 14,
+      color: '#212529',
     },
     sidebarUserEmail: {
       fontSize: 12,
-      color: '#6b7280',
+      color: '#6c757d',
     },
     sidebarActions: {
       display: 'flex',
@@ -172,13 +171,13 @@ export default function styles() {
       backgroundColor: 'transparent',
       border: 'none',
       cursor: 'pointer',
-      color: '#111827',
+      color: '#495057',
       transition: 'background-color 0.2s ease',
     },
     newSessionButton: {
       width: '100%',
       padding: '8px 16px',
-      background: 'linear-gradient(135deg, #9333ea 0%, #db2777 100%)',
+      background: 'linear-gradient(135deg, #343a40 0%, #212529 100%)',
       color: '#ffffff',
       borderRadius: 8,
       border: 'none',
@@ -202,7 +201,7 @@ export default function styles() {
     sessionsTitle: {
       fontSize: 12,
       fontWeight: 500,
-      color: '#6b7280',
+      color: '#6c757d',
       marginBottom: 12,
       textTransform: 'uppercase',
       letterSpacing: 0.5,
@@ -216,8 +215,8 @@ export default function styles() {
       border: '1px solid transparent',
     },
     sessionItemActive: {
-      background: 'linear-gradient(135deg, rgba(147, 51, 234, 0.1) 0%, rgba(219, 39, 119, 0.1) 100%)',
-      border: '1px solid rgba(147, 51, 234, 0.2)',
+      backgroundColor: '#f8f9fa',
+      border: '1px solid #dee2e6',
     },
     sessionHeader: {
       display: 'flex',
@@ -228,10 +227,11 @@ export default function styles() {
     sessionName: {
       fontWeight: 500,
       fontSize: 14,
+      color: '#212529',
     },
     sessionDate: {
       fontSize: 12,
-      color: '#6b7280',
+      color: '#6c757d',
     },
 
     // ---------- Main Content ----------
@@ -247,21 +247,21 @@ export default function styles() {
       width: 384,
       display: 'flex',
       flexDirection: 'column',
-      borderRight: '1px solid #e5e7eb',
+      borderRight: '1px solid #e9ecef',
       minWidth: 0,
       backgroundColor: '#ffffff',
     },
     chatHeader: {
       padding: 16,
-      borderBottom: '1px solid #e5e7eb',
-      backgroundColor: '#ffffff',
+      borderBottom: '1px solid #e9ecef',
+      backgroundColor: '#f8f9fa',
     },
     chatTitle: {
       fontWeight: 600,
       display: 'flex',
       alignItems: 'center',
       gap: 8,
-      color: '#111827',
+      color: '#212529',
     },
 
     // Messages
@@ -273,7 +273,7 @@ export default function styles() {
       flexDirection: 'column',
       gap: 16,
       minHeight: 0,
-      backgroundColor: '#f9fafb',
+      backgroundColor: '#f8f9fa',
     },
     messageWrapper: {
       display: 'flex',
@@ -291,13 +291,13 @@ export default function styles() {
       boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
     },
     messageUser: {
-      background: 'linear-gradient(135deg, #9333ea 0%, #db2777 100%)',
+      background: 'linear-gradient(135deg, #343a40 0%, #212529 100%)',
       color: '#ffffff',
     },
     messageAi: {
       backgroundColor: '#ffffff',
-      color: '#111827',
-      border: '1px solid #e5e7eb',
+      color: '#212529',
+      border: '1px solid #e9ecef',
     },
     messageImage: {
       width: '100%',
@@ -311,7 +311,7 @@ export default function styles() {
     messageText: {
       fontSize: 14,
       lineHeight: 1.6,
-      color: '#111827',
+      color: '#212529',
       fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
     },
 
@@ -325,7 +325,7 @@ export default function styles() {
     markdownContent: {
       fontSize: 14,
       lineHeight: 1.6,
-      color: '#111827',
+      color: '#212529',
     },
 
     // Headings in messages
@@ -334,7 +334,7 @@ export default function styles() {
       fontWeight: 700,
       marginBottom: 8,
       marginTop: 12,
-      color: '#1f2937',
+      color: '#212529',
       lineHeight: 1.4,
     },
 
@@ -343,7 +343,7 @@ export default function styles() {
       fontWeight: 600,
       marginBottom: 6,
       marginTop: 10,
-      color: '#374151',
+      color: '#343a40',
       lineHeight: 1.4,
     },
 
@@ -352,7 +352,7 @@ export default function styles() {
       fontWeight: 600,
       marginBottom: 4,
       marginTop: 8,
-      color: '#4b5563',
+      color: '#495057',
       lineHeight: 1.4,
     },
 
@@ -361,7 +361,7 @@ export default function styles() {
       fontSize: 14,
       lineHeight: 1.6,
       marginBottom: 8,
-      color: '#111827',
+      color: '#212529',
     },
 
     // Lists in messages
@@ -375,36 +375,36 @@ export default function styles() {
       marginBottom: 4,
       fontSize: 14,
       lineHeight: 1.5,
-      color: '#111827',
+      color: '#212529',
     },
 
     // Text formatting
     messageBold: {
       fontWeight: 600,
-      color: '#1f2937',
+      color: '#212529',
     },
 
     messageItalic: {
       fontStyle: 'italic',
-      color: '#374151',
+      color: '#343a40',
     },
 
     // Inline code in messages
     messageInlineCode: {
-      backgroundColor: '#f3f4f6',
-      border: '1px solid #e5e7eb',
+      backgroundColor: '#f8f9fa',
+      border: '1px solid #e9ecef',
       borderRadius: 4,
       padding: '2px 6px',
       fontFamily: 'Monaco, Menlo, "Ubuntu Mono", Consolas, monospace',
       fontSize: 12,
-      color: '#dc2626',
+      color: '#495057',
     },
 
     // Code Container for code blocks
     codeContainer: {
       marginTop: 12,
       marginBottom: 8,
-      border: '1px solid #d1d5db',
+      border: '1px solid #dee2e6',
       borderRadius: 8,
       overflow: 'hidden',
       backgroundColor: '#ffffff',
@@ -415,23 +415,23 @@ export default function styles() {
       justifyContent: 'space-between',
       alignItems: 'center',
       padding: '8px 12px',
-      backgroundColor: '#f8fafc',
-      borderBottom: '1px solid #e5e7eb',
+      backgroundColor: '#f8f9fa',
+      borderBottom: '1px solid #e9ecef',
     },
 
     codeLabel: {
       fontSize: 12,
       fontWeight: 600,
-      color: '#374151',
+      color: '#343a40',
     },
 
     copyButton: {
       background: 'none',
-      border: '1px solid #d1d5db',
+      border: '1px solid #ced4da',
       borderRadius: 4,
       cursor: 'pointer',
       padding: '4px 8px',
-      color: '#6b7280',
+      color: '#6c757d',
       fontSize: 12,
       display: 'flex',
       alignItems: 'center',
@@ -440,17 +440,32 @@ export default function styles() {
     },
 
     copyButtonActive: {
-      backgroundColor: '#dcfce7',
-      borderColor: '#16a34a',
-      color: '#166534',
+      backgroundColor: '#d1ecf1',
+      borderColor: '#b8daff',
+      color: '#004085',
+    },
+
+    // Download button styles
+    downloadButton: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: '4px',
+      padding: '6px 12px',
+      border: '1px solid #343a40',
+      backgroundColor: '#f8f9fa',
+      color: '#343a40',
+      borderRadius: '6px',
+      fontSize: '12px',
+      cursor: 'pointer',
+      transition: 'all 0.2s ease',
     },
 
     // Code blocks in messages
     messageCodeBlock: {
       margin: 0,
       padding: 16,
-      backgroundColor: '#1e293b',
-      color: '#e2e8f0',
+      backgroundColor: '#212529',
+      color: '#f8f9fa',
       fontSize: 13,
       lineHeight: 1.5,
       overflow: 'auto',
@@ -463,8 +478,8 @@ export default function styles() {
     generatedCodeBlock: {
       margin: 0,
       padding: 16,
-      backgroundColor: '#0f172a',
-      color: '#f1f5f9',
+      backgroundColor: '#212529',
+      color: '#f8f9fa',
       fontSize: 13,
       lineHeight: 1.6,
       overflow: 'auto',
@@ -477,14 +492,85 @@ export default function styles() {
     codeBlock: {
       margin: 0,
       padding: 16,
-      backgroundColor: '#1e293b',
-      color: '#f1f5f9',
+      backgroundColor: '#212529',
+      color: '#f8f9fa',
       fontSize: 13,
       lineHeight: 1.6,
       overflow: 'auto',
       maxHeight: 400,
       fontFamily: 'Monaco, Menlo, "Ubuntu Mono", Consolas, monospace',
       whiteSpace: 'pre-wrap',
+    },
+
+    // Multi-code container styles
+    multiCodeContainer: {
+      marginTop: '12px',
+      border: '1px solid #e9ecef',
+      borderRadius: '8px',
+      overflow: 'hidden',
+      backgroundColor: '#ffffff'
+    },
+
+    codeTabsContainer: {
+      display: 'flex',
+      backgroundColor: '#f8f9fa',
+      borderBottom: '1px solid #e9ecef',
+      overflowX: 'auto'
+    },
+
+    codeTab: {
+      padding: '8px 16px',
+      border: 'none',
+      backgroundColor: 'transparent',
+      cursor: 'pointer',
+      fontSize: '13px',
+      fontWeight: '500',
+      whiteSpace: 'nowrap',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '6px',
+      transition: 'all 0.2s ease',
+      color: '#6c757d',
+    },
+
+    codeTabActive: {
+      backgroundColor: '#ffffff',
+      borderBottom: '2px solid #343a40',
+      color: '#343a40'
+    },
+
+    codeInfo: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: '8px'
+    },
+
+    languageLabel: {
+      fontSize: '12px',
+      padding: '2px 6px',
+      backgroundColor: '#f8f9fa',
+      color: '#6c757d',
+      borderRadius: '4px',
+      textTransform: 'uppercase'
+    },
+
+    codeActions: {
+      display: 'flex',
+      gap: '8px'
+    },
+
+    previewButton: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: '4px',
+      padding: '6px 12px',
+      border: '1px solid #ced4da',
+      backgroundColor: '#ffffff',
+      color: '#343a40',
+      borderRadius: '6px',
+      fontSize: '12px',
+      cursor: 'pointer',
+      transition: 'all 0.2s ease',
     },
 
     // Loading dots
@@ -496,7 +582,7 @@ export default function styles() {
     loadingDot: {
       width: 8,
       height: 8,
-      backgroundColor: '#9ca3af',
+      backgroundColor: '#6c757d',
       borderRadius: '50%',
       animation: 'bounce 1.4s ease-in-out infinite both',
     },
@@ -504,23 +590,23 @@ export default function styles() {
     // Input Area
     inputArea: {
       padding: 16,
-      borderTop: '1px solid #e5e7eb',
+      borderTop: '1px solid #e9ecef',
       backgroundColor: '#ffffff',
     },
     imagePreview: {
       marginBottom: 8,
       padding: 8,
-      backgroundColor: '#f3f4f6',
+      backgroundColor: '#f8f9fa',
       borderRadius: 6,
-      border: '1px solid #e5e7eb',
+      border: '1px solid #e9ecef',
     },
     imagePreviewText: {
       fontSize: 14,
-      color: '#6b7280',
+      color: '#6c757d',
     },
     removeImageButton: {
       fontSize: 12,
-      color: '#ef4444',
+      color: '#dc3545',
       cursor: 'pointer',
       marginTop: 4,
       fontWeight: 500,
@@ -536,11 +622,11 @@ export default function styles() {
     },
     textarea: {
       width: '100%',
-      padding: '20px 0px 20px 2px', // leave space for send button
+      padding: '20px 0px 20px 2px',
       borderRadius: 8,
-      border: '1px solid #d1d5db',
+      border: '1px solid #ced4da',
       backgroundColor: '#ffffff',
-      color: '#111827',
+      color: '#212529',
       resize: 'none',
       outline: 'none',
       fontSize: 14,
@@ -556,7 +642,7 @@ export default function styles() {
       backgroundColor: 'transparent',
       border: 'none',
       cursor: 'pointer',
-      color: '#6b7280',
+      color: '#6c757d',
       transition: 'color 0.2s ease',
     },
     sendButton: {
@@ -564,7 +650,7 @@ export default function styles() {
       right: 4,
       bottom: 10,
       padding: '8px 12px',
-      background: 'linear-gradient(135deg, #9333ea 0%, #db2777 100%)',
+      background: 'linear-gradient(135deg, #343a40 0%, #212529 100%)',
       color: '#ffffff',
       borderRadius: 6,
       border: 'none',
@@ -590,22 +676,22 @@ export default function styles() {
     },
     previewHeader: {
       padding: 16,
-      borderBottom: '1px solid #e5e7eb',
+      borderBottom: '1px solid #e9ecef',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
-      backgroundColor: '#ffffff',
+      backgroundColor: '#f8f9fa',
     },
     previewTitle: {
       fontWeight: 600,
-      color: '#111827',
+      color: '#212529',
     },
     viewModeToggle: {
       display: 'flex',
-      backgroundColor: '#f3f4f6',
+      backgroundColor: '#f8f9fa',
       borderRadius: 8,
       padding: 4,
-      border: '1px solid #e5e7eb',
+      border: '1px solid #e9ecef',
     },
     viewModeButton: {
       padding: '6px 12px',
@@ -618,11 +704,11 @@ export default function styles() {
       cursor: 'pointer',
       transition: 'all 0.2s ease',
       backgroundColor: 'transparent',
-      color: '#6b7280',
+      color: '#6c757d',
       fontWeight: 500,
     },
     viewModeButtonActive: {
-      backgroundColor: '#9333ea',
+      backgroundColor: '#343a40',
       color: '#ffffff',
       boxShadow: '0 1px 2px rgba(0, 0, 0, 0.1)',
     },
@@ -631,12 +717,12 @@ export default function styles() {
       flex: 1,
       padding: 16,
       minHeight: 0,
-      backgroundColor: '#f9fafb',
+      backgroundColor: '#f8f9fa',
     },
     previewBox: {
       height: '100%',
       borderRadius: 8,
-      border: '2px dashed #d1d5db',
+      border: '2px dashed #ced4da',
       backgroundColor: '#ffffff',
       padding: 16,
       overflow: 'auto',
@@ -648,20 +734,20 @@ export default function styles() {
       justifyContent: 'center',
       height: '200px',
       textAlign: 'center',
-      color: '#6b7280',
+      color: '#6c757d',
       gap: 8,
     },
     codeBox: {
       height: '100%',
       borderRadius: 8,
-      backgroundColor: '#1e293b',
+      backgroundColor: '#212529',
       padding: 0,
       overflow: 'hidden',
-      border: '1px solid #334155',
+      border: '1px solid #495057',
     },
     codeText: {
       fontSize: 13,
-      color: '#f1f5f9',
+      color: '#f8f9fa',
       fontFamily: 'Monaco, Menlo, "Ubuntu Mono", Consolas, monospace',
       whiteSpace: 'pre-wrap',
       padding: 16,
@@ -676,7 +762,7 @@ export default function styles() {
       alignItems: 'center',
       justifyContent: 'center',
       borderRadius: 8,
-      border: '2px dashed #d1d5db',
+      border: '2px dashed #ced4da',
       backgroundColor: '#ffffff',
     },
     emptyStateContent: {
@@ -686,17 +772,17 @@ export default function styles() {
       width: 48,
       height: 48,
       margin: '0 auto 16px',
-      color: '#9ca3af',
+      color: '#adb5bd',
       display: 'block',
     },
     emptyStateTitle: {
       fontSize: 18,
       fontWeight: 500,
       marginBottom: 8,
-      color: '#6b7280',
+      color: '#6c757d',
     },
     emptyStateText: {
-      color: '#9ca3af',
+      color: '#adb5bd',
       fontSize: 14,
     },
   };
