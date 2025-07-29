@@ -12,6 +12,7 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "@upstash/redis": "^1.35.2",
     "axios": "^1.11.0",
     "bcrypt": "^6.0.0",
     "connect-redis": "^6.1.3",
