@@ -7,6 +7,11 @@ const redisClient = new Redis(process.env.UPSTASH_REDIS_URL, {
   },
   lazyConnect: true,
   maxRetriesPerRequest: 3,
+  retryDelayOnFailover: 100,
+  enableReadyCheck: false,
+  maxLoadingTimeout: 1,
+  connectTimeout: 10000,
+  commandTimeout: 5000,
 });
 
 redisClient.on('connect', () => {
@@ -23,6 +28,17 @@ redisClient.on('ready', () => {
 
 redisClient.on('reconnecting', () => {
   console.log('🔄 Redis client is reconnecting...');
+});
+
+redisClient.on('close', () => {
+  console.log('🔌 Redis connection closed');
+});
+
+// Test the connection
+redisClient.ping().then(result => {
+  console.log('🏓 Redis ping result:', result);
+}).catch(err => {
+  console.error('❌ Redis ping failed:', err);
 });
 
 module.exports = redisClient;
