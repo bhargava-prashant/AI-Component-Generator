@@ -9,17 +9,12 @@ const getApiBaseUrl = () => {
 };
 
 const api = axios.create({
-<<<<<<< HEAD
-  baseURL: 'https://ai-component-generator-0akk.onrender.com/api', // Adjust this URL to your backend server
-  withCredentials: true,  // Allow cookies/session to be sent
-=======
   baseURL: getApiBaseUrl(),
   withCredentials: true,  // Essential for sending cookies
   timeout: 30000, // 30 second timeout
   headers: {
     'Content-Type': 'application/json',
   }
->>>>>>> ce02eb9 (checking)
 });
 
 // Request interceptor
