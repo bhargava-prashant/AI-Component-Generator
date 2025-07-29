@@ -172,7 +172,7 @@ app.use(session({
     maxAge: 1000 * 60 * 60 * 24 * 30, // 30 days
     httpOnly: true,
     secure: true,       // ✅ Secure true for production (Render uses HTTPS)
-    sameSite: none, // ✅ Allow cross-origin cookies
+    sameSite: 'none', // ✅ Allow cross-origin cookies
   }
 }));
 
