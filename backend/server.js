@@ -11,15 +11,8 @@ require('./config/passport');
 
 const app = express();
 
-<<<<<<< HEAD
-app.use(cors({
-  origin: 'https://ai-component-generator-frontend-oor6.onrender.com',
-  credentials: true,
-}));
-=======
 // Trust proxy (essential for Render)
 app.set('trust proxy', 1);
->>>>>>> ce02eb9 (checking)
 
 // CORS configuration for production
 const corsOptions = {
@@ -67,14 +60,9 @@ app.use(session({
   cookie: {
     maxAge: 1000 * 60 * 60 * 24 * 30, // 30 days
     httpOnly: true,
-<<<<<<< HEAD
-    secure: true,       // ✅ Secure true for production (Render uses HTTPS)
-    sameSite: 'none', // ✅ Allow cross-origin cookies
-=======
     secure: process.env.NODE_ENV === 'production', // true in production (HTTPS)
     sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', // 'none' for cross-origin in production
     domain: process.env.NODE_ENV === 'production' ? undefined : undefined // Let browser handle domain
->>>>>>> ce02eb9 (checking)
   }
 }));
 
