@@ -22,7 +22,8 @@ const corsOptions = {
     
     const allowedOrigins = [
       'http://localhost:3000', // Local development
-      'https://ai-component-generator-frontend-oor6.onrender.com' // Your frontend URL
+      'https://ai-component-generator-frontend-oor6.onrender.com',
+      'https://ai-component-generator-frontend.onrender.com'
     ];
     
     if (allowedOrigins.includes(origin)) {
