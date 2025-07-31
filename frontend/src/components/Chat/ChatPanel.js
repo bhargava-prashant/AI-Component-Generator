@@ -3,6 +3,7 @@ import { Send, Upload, MessageSquare, Copy, Check, Eye, Code2, Download, Refresh
 import styles from "../../styles/styleObjects";
 import LoadingDots from "../Common/LoadingDots";
 import api from "../../utils/api";
+import { generateComponent } from "../../api/generate";
 import ReactMarkdown from 'react-markdown';
 import JSZip from 'jszip';
 
@@ -264,56 +265,96 @@ Return the complete updated component code, not just the changes. Make sure to m
     setIsRefinementMode(isActualRefinement);
 
     try {
-      // Send the enhanced prompt for refinements, original prompt otherwise
-      const response = await api.post("/generate", { prompt: finalPrompt });
-      
-      const responseContent = response.data.code || response.data.response || response.data.content || response.data.message || "No response received";
-      
-      // Extract multiple code blocks
-      const codeBlocks = extractCodeBlocksFromResponse(responseContent);
-      
-      const aiMessage = {
+      // Create a temporary AI message for streaming updates
+      const tempAiMessage = {
         id: Date.now() + 1,
         type: "ai",
-        content: responseContent,
+        content: "",
         timestamp: new Date().toLocaleTimeString(),
-        codeBlocks: codeBlocks,
+        codeBlocks: [],
         isRefinementResult: isActualRefinement,
-        originalComponentId: isActualRefinement ? componentContext?.messageId : null
+        originalComponentId: isActualRefinement ? componentContext?.messageId : null,
+        isStreaming: true
       };
 
-      const updatedMessages = [...newMessages, aiMessage];
-      setMessages(updatedMessages);
+      const messagesWithTemp = [...newMessages, tempAiMessage];
+      setMessages(messagesWithTemp);
+
+      // Prepare the request data
+      const requestData = { prompt: finalPrompt };
       
-      // Set the first code block as the generated code for backward compatibility
-      if (codeBlocks.length > 0) {
-        setGeneratedCode(codeBlocks[0].code);
-        
-        // Set the first code block as active by default
-        setActiveCodeBlocks(prev => ({
-          ...prev,
-          [aiMessage.id]: 0
-        }));
+      // If this is a refinement request, include the existing code and original prompt
+      if (isActualRefinement && componentContext) {
+        requestData.existingCode = componentContext.code;
+        requestData.originalPrompt = componentContext.originalPrompt;
       }
 
-      // Save session with updated messages if we have a current session
-      if (currentSession) {
-        try {
-          const sessionUpdateData = {
-            messages: updatedMessages,
-            code: codeBlocks.length > 0 ? codeBlocks[0].code : (currentSession.code || ""),
-            name: currentSession.name === "New Session" ? 
-              (userMessage.content.length > 30 ? userMessage.content.substring(0, 30) + "..." : userMessage.content) : 
-              currentSession.name
+      // Use the streaming API
+      const responseContent = await generateComponent(
+        requestData,
+        (progressMessage) => {
+          // Update the temporary message with progress
+          setMessages(prev => prev.map(msg => 
+            msg.id === tempAiMessage.id 
+              ? { ...msg, content: progressMessage }
+              : msg
+          ));
+        },
+        (finalCode) => {
+          // Extract multiple code blocks from the final response
+          const codeBlocks = extractCodeBlocksFromResponse(finalCode);
+          
+          // Update the temporary message with final content
+          const finalAiMessage = {
+            ...tempAiMessage,
+            content: finalCode,
+            codeBlocks: codeBlocks,
+            isStreaming: false
           };
 
-          await api.put(`/session/sessions/${currentSession._id}`, sessionUpdateData);
-          console.log("✅ Session updated with new messages");
-        } catch (sessionError) {
-          console.error("Failed to save session:", sessionError);
+          setMessages(prev => prev.map(msg => 
+            msg.id === tempAiMessage.id ? finalAiMessage : msg
+          ));
+          
+          // Set the first code block as the generated code for backward compatibility
+          if (codeBlocks.length > 0) {
+            setGeneratedCode(codeBlocks[0].code);
+            
+            // Set the first code block as active by default
+            setActiveCodeBlocks(prev => ({
+              ...prev,
+              [finalAiMessage.id]: 0
+            }));
+          }
+
+          // Save session with updated messages if we have a current session
+          if (currentSession) {
+            try {
+              const sessionUpdateData = {
+                messages: [...newMessages, finalAiMessage],
+                code: codeBlocks.length > 0 ? codeBlocks[0].code : (currentSession.code || ""),
+                name: currentSession.name === "New Session" ? 
+                  (userMessage.content.length > 30 ? userMessage.content.substring(0, 30) + "..." : userMessage.content) : 
+                  currentSession.name
+              };
+
+              api.put(`/session/sessions/${currentSession._id}`, sessionUpdateData);
+              console.log("✅ Session updated with new messages");
+            } catch (sessionError) {
+              console.error("Failed to save session:", sessionError);
+            }
+          }
+        },
+        (errorMessage) => {
+          // Update the temporary message with error
+          setMessages(prev => prev.map(msg => 
+            msg.id === tempAiMessage.id 
+              ? { ...msg, content: `Error: ${errorMessage}`, isStreaming: false }
+              : msg
+          ));
         }
-      }
-      
+      );
+
     } catch (error) {
       setMessages((prev) => [
         ...prev,
@@ -672,6 +713,24 @@ Return the complete updated component code, not just the changes. Make sure to m
   };
 
   const renderMessageContent = (message) => {
+    // Handle streaming messages
+    if (message.isStreaming) {
+      return (
+        <div style={styles().messageText}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            color: '#6b7280',
+            fontStyle: 'italic'
+          }}>
+            <LoadingDots />
+            <span>{message.content || 'Generating response...'}</span>
+          </div>
+        </div>
+      );
+    }
+
     // Handle messages with code blocks
     if (message.codeBlocks && message.codeBlocks.length > 0) {
       // Remove code blocks from content for text display
@@ -895,7 +954,7 @@ Return the complete updated component code, not just the changes. Make sure to m
           />
         )}
         
-        <div style={styles().messageText}>
+        <div style={message.type === "user" ? styles().messageTextUser : styles().messageText}>
           {message.content}
         </div>
       </div>
@@ -963,7 +1022,19 @@ Return the complete updated component code, not just the changes. Make sure to m
               }}
             >
               {message.type === "user" ? renderUserMessage(message) : renderMessageContent(message)}
-              <div style={styles().messageTime}>{message.timestamp}</div>
+              <div style={styles().messageTime}>
+                {message.timestamp}
+                {message.isStreaming && (
+                  <span style={{
+                    marginLeft: '8px',
+                    fontSize: '11px',
+                    color: '#3b82f6',
+                    fontStyle: 'italic'
+                  }}>
+                    • streaming
+                  </span>
+                )}
+              </div>
             </div>
           </div>
         ))}
@@ -971,16 +1042,14 @@ Return the complete updated component code, not just the changes. Make sure to m
           <div style={styles().messageWrapperAi}>
             <div style={{ ...styles().message, ...styles().messageAi }}>
               <LoadingDots />
-              {isRefinementMode && (
-                <div style={{
-                  fontSize: '12px',
-                  color: '#6b7280',
-                  marginTop: '8px',
-                  fontStyle: 'italic'
-                }}>
-                  Refining component...
-                </div>
-              )}
+              <div style={{
+                fontSize: '12px',
+                color: '#6b7280',
+                marginTop: '8px',
+                fontStyle: 'italic'
+              }}>
+                {isRefinementMode ? 'Refining component...' : 'Generating component...'}
+              </div>
             </div>
           </div>
         )}

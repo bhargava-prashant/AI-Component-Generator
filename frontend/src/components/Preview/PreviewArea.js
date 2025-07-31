@@ -1,24 +1,26 @@
 import React from "react";
-import { Eye, Code, Sparkles, AlertTriangle } from "lucide-react";
+import { Eye, Code, Sparkles, AlertTriangle, Palette, Zap } from "lucide-react";
 import styles from "../../styles/styleObjects";
+import ReactPreview from "./ReactPreview";
+import CSSPreview from "./CSSPreview";
+import ReactCodePreview from "./ReactCodePreview";
 
 function PreviewArea({ generatedCode, viewMode, setViewMode }) {
+  const isReactComponent = generatedCode && (
+    generatedCode.includes('function ') || 
+    generatedCode.includes('const ') || 
+    generatedCode.includes('export') ||
+    generatedCode.includes('React') ||
+    generatedCode.includes('jsx')
+  );
+
   const renderPreview = () => {
     if (!generatedCode) return null;
 
     try {
-      // For React components, we need to transform JSX to HTML
-      // This is a simplified approach - you might want to use a proper JSX transformer
-      if (generatedCode.includes('function ') || generatedCode.includes('const ') || generatedCode.includes('export')) {
-        return (
-          <div style={styles().previewBox}>
-            <div style={styles().previewError}>
-              <AlertTriangle size={24} style={{ color: '#f59e0b' }} />
-              <p>React component preview requires a proper build setup.</p>
-              <p>Switch to Code view to see the component code.</p>
-            </div>
-          </div>
-        );
+      // For React components, use the new ReactPreview component
+      if (isReactComponent) {
+        return <ReactPreview code={generatedCode} viewMode={viewMode} />;
       }
       
       // For HTML content
@@ -61,6 +63,34 @@ function PreviewArea({ generatedCode, viewMode, setViewMode }) {
               <Eye size={16} />
               <span>Preview</span>
             </button>
+            {isReactComponent && (
+              <>
+                <button
+                  onClick={() => setViewMode("react")}
+                  style={{
+                    ...styles().viewModeButton,
+                    ...(viewMode === "react"
+                      ? styles().viewModeButtonActive
+                      : {}),
+                  }}
+                >
+                  <Zap size={16} />
+                  <span>React</span>
+                </button>
+                <button
+                  onClick={() => setViewMode("css")}
+                  style={{
+                    ...styles().viewModeButton,
+                    ...(viewMode === "css"
+                      ? styles().viewModeButtonActive
+                      : {}),
+                  }}
+                >
+                  <Palette size={16} />
+                  <span>CSS</span>
+                </button>
+              </>
+            )}
             <button
               onClick={() => setViewMode("code")}
               style={{
@@ -76,20 +106,26 @@ function PreviewArea({ generatedCode, viewMode, setViewMode }) {
           </div>
         )}
       </div>
-      <div style={styles().previewContent}>
-        {generatedCode ? (
-          <div style={{ height: "100%" }}>
-            {viewMode === "preview" ? (
-              renderPreview()
-            ) : (
-              <div style={styles().codeBox}>
-                <pre style={styles().codeText}>
-                  <code>{generatedCode}</code>
-                </pre>
-              </div>
-            )}
-          </div>
-        ) : (
+              <div style={styles().previewContent}>
+          {generatedCode ? (
+            <div style={{ height: "100%" }}>
+              {viewMode === "preview" ? (
+                renderPreview()
+              ) : viewMode === "react" ? (
+                <ReactCodePreview code={generatedCode} viewMode={viewMode} />
+              ) : viewMode === "css" ? (
+                <CSSPreview code={generatedCode} viewMode={viewMode} />
+              ) : viewMode === "code" ? (
+                <div style={styles().codeBox}>
+                  <pre style={styles().codeText}>
+                    <code>{generatedCode}</code>
+                  </pre>
+                </div>
+              ) : (
+                renderPreview()
+              )}
+            </div>
+          ) : (
           <div style={styles().emptyState}>
             <div style={styles().emptyStateContent}>
               <Sparkles style={styles().emptyStateIcon} />

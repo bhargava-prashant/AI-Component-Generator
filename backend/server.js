@@ -40,7 +40,19 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.use(express.json());
+
+// 🚀 INCREASED PAYLOAD LIMITS TO 10MB
+app.use(express.json({ 
+  limit: '10mb',
+  extended: true,
+  parameterLimit: 50000 // Increase parameter limit as well
+}));
+
+app.use(express.urlencoded({ 
+  limit: '10mb',
+  extended: true,
+  parameterLimit: 50000
+}));
 
 // ✅ Using the correct method for connect-redis@6.1.3
 const RedisStore = require('connect-redis')(session);
@@ -50,6 +62,7 @@ const redisStore = new RedisStore({
 });
 
 console.log('✅ Using connect-redis v6.1.3 (CommonJS)');
+console.log('📦 Max payload size set to: 10MB');
 
 // Session configuration for production
 app.use(session({
@@ -75,6 +88,13 @@ app.use((req, res, next) => {
   console.log('Origin:', req.headers.origin);
   console.log('User-Agent:', req.headers['user-agent']);
   console.log('Cookies:', req.headers.cookie);
+  
+  // Log payload size for debugging
+  if (req.body && Object.keys(req.body).length > 0) {
+    const payloadSize = JSON.stringify(req.body).length;
+    console.log('📦 Payload size:', (payloadSize / 1024).toFixed(2) + 'KB');
+  }
+  
   console.log('🧠 Session ID:', req.sessionID);
   console.log('🧠 Session Data:', req.session);
   console.log('🧠 User:', req.user);
@@ -90,7 +110,8 @@ app.get('/api/health', (req, res) => {
   res.json({ 
     status: 'OK', 
     timestamp: new Date().toISOString(),
-    env: process.env.NODE_ENV 
+    env: process.env.NODE_ENV,
+    maxPayloadSize: '10MB'
   });
 });
 
@@ -107,14 +128,45 @@ app.get('/api/protected', (req, res) => {
   res.status(401).json({ message: 'Unauthorized' });
 });
 
-// Error handling middleware
+// Enhanced error handling middleware for payload issues
 app.use((err, req, res, next) => {
   console.error('❌ Server Error:', err);
-  res.status(500).json({ message: 'Internal server error' });
+  
+  // Handle payload too large errors
+  if (err.type === 'entity.too.large') {
+    return res.status(413).json({ 
+      error: 'Payload too large',
+      message: 'Request body exceeds the maximum size limit of 10MB',
+      maxSize: '10MB'
+    });
+  }
+  
+  // Handle JSON parsing errors
+  if (err.type === 'entity.parse.failed') {
+    return res.status(400).json({
+      error: 'Invalid JSON',
+      message: 'Request body contains invalid JSON'
+    });
+  }
+  
+  // Handle syntax errors in JSON
+  if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
+    return res.status(400).json({
+      error: 'Invalid JSON syntax',
+      message: 'Request body contains malformed JSON'
+    });
+  }
+  
+  res.status(500).json({ 
+    message: 'Internal server error',
+    ...(process.env.NODE_ENV === 'development' && { stack: err.stack })
+  });
 });
 
 const PORT = process.env.PORT || 5000;
+
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
+  console.log(`📦 Max payload size: 10MB`);
   console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
 });

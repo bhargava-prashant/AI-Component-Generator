@@ -314,6 +314,12 @@ export default function styles() {
       color: '#212529',
       fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
     },
+    messageTextUser: {
+      fontSize: 14,
+      lineHeight: 1.6,
+      color: '#ffffff',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+    },
 
     messageTime: {
       fontSize: 12,
@@ -692,6 +698,8 @@ export default function styles() {
       borderRadius: 8,
       padding: 4,
       border: '1px solid #e9ecef',
+      flexWrap: 'wrap',
+      gap: 2,
     },
     viewModeButton: {
       padding: '6px 12px',
@@ -784,6 +792,18 @@ export default function styles() {
     emptyStateText: {
       color: '#adb5bd',
       fontSize: 14,
+    },
+    reactPreviewContainer: {
+      padding: 20,
+      minHeight: 200,
+      border: '1px solid #e5e7eb',
+      borderRadius: 8,
+      backgroundColor: '#ffffff',
+    },
+    cssPreviewContainer: {
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
     },
   };
 }
