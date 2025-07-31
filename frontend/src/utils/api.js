@@ -2,9 +2,9 @@ import axios from 'axios';
 
 // Determine the API base URL based on environment
 const getApiBaseUrl = () => {
-  // if (process.env.NODE_ENV === 'production') {
-  //   return 'https://ai-component-generator-0akk.onrender.com/api';
-  // }
+  if (process.env.NODE_ENV === 'production') {
+    return 'https://ai-component-generator-0akk.onrender.com/api';
+  }
   return 'http://localhost:5000/api';
 };
 
