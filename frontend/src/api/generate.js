@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Determine the API base URL based on environment
 const getApiBaseUrl = () => {
-  return 'http://localhost:5000/api';
+  return 'https://ai-component-generator-0akk.onrender.com/api';
 };
 
 export const generateComponent = async (formData, onProgress, onComplete, onError) => {
